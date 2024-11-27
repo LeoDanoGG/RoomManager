@@ -1,41 +1,37 @@
 import UIKit
-import Foundation
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // Atributos
-    var RoomList: [Room] = [] // Lista de salas
-    @IBOutlet weak var RoomTable: UITableView!
-    // Métodos
+    var RoomList: [Room] = [
+        Room(name: "Apps", number: 516, people: [], reserved: false),
+        Room(name: "DAM", number: 408, people: ["Juan", "Javier"], reserved: true),
+        Room(name: "Design", number: 311, people: ["Jessica"], reserved: false),
+        Room(name: "Videogames 1", number: 520, people: [], reserved: true)
+    ] // Lista de salas
+    @IBOutlet weak var RoomTable: UITableView!    // Métodos
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return RoomList.count }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RoomCell" , for : indexPath) as! RoomCellController
+        cell.roomNumber?.text = "\(RoomList[indexPath.item].number)"
+        return cell
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        // MARK: - Registrar
+        RoomTable.register(UINib(nibName: "RoomCellController", bundle: nil), forCellReuseIdentifier: "RoomCell")
+        RoomTable.delegate = self
+        RoomTable.dataSource = self
         StartRooms()
-        RoomList.register(UITableViewCell.self, forCellReuseIdentifier: "RoomCell")
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RoomList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RoomCell", for: indexPath)
-                
-                let model = RoomList[indexPath.row]
-                
-                var listContentConfiguration = UIListContentConfiguration.cell()
-                listContentConfiguration.text = model.name
-                
-                cell.contentConfiguration = listContentConfiguration
-                return cell
     }
     /// Listado de salas disponibles y reservadas inicial
     func StartRooms() {
-        var room516 = Room(name: "Apps", number: 516, people: [], reserved: false)
+        /*var room516 = Room(name: "Apps", number: 516, people: [], reserved: false)
         RoomList.append(room516)
         room516 = Room(name: "DAM", number: 408, people: ["Juan", "Javier"], reserved: true)
         RoomList.append(room516)
         room516 = Room(name: "Design", number: 311, people: ["Jessica"], reserved: false)
         RoomList.append(room516)
         room516 = Room(name: "Videogames 1", number: 520, people: [], reserved: true)
-        RoomList.append(room516)
+        RoomList.append(room516)*/
         
         //ListOfRooms(list: RoomManager)
     }/*

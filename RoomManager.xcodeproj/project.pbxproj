@@ -17,6 +17,7 @@
 		7FC40DA42CF71C2700535955 /* RoomManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC40DA32CF71C2700535955 /* RoomManagerUITests.swift */; };
 		7FC40DA62CF71C2700535955 /* RoomManagerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC40DA52CF71C2700535955 /* RoomManagerUITestsLaunchTests.swift */; };
 		7FC40DB32CF71C4800535955 /* RoomClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC40DB22CF71C4800535955 /* RoomClass.swift */; };
+		FAA5E7EA2CF73A2A00157015 /* RoomCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E7E92CF73A2000157015 /* RoomCellController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		7FC40DA32CF71C2700535955 /* RoomManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManagerUITests.swift; sourceTree = "<group>"; };
 		7FC40DA52CF71C2700535955 /* RoomManagerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManagerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7FC40DB22CF71C4800535955 /* RoomClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomClass.swift; sourceTree = "<group>"; };
+		FAA5E7E92CF73A2000157015 /* RoomCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				7FC40D8D2CF71C2600535955 /* LaunchScreen.storyboard */,
 				7FC40D902CF71C2600535955 /* Info.plist */,
 				7FC40DB22CF71C4800535955 /* RoomClass.swift */,
+				FAA5E7E92CF73A2000157015 /* RoomCellController.swift */,
 			);
 			path = RoomManager;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA5E7EA2CF73A2A00157015 /* RoomCellController.swift in Sources */,
 				7FC40D872CF71C2400535955 /* ViewController.swift in Sources */,
 				7FC40DB32CF71C4800535955 /* RoomClass.swift in Sources */,
 				7FC40D832CF71C2400535955 /* AppDelegate.swift in Sources */,
