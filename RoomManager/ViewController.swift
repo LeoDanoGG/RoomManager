@@ -3,11 +3,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Atributos
     var RoomList: [Room] = [
         Room(name: "Apps", number: 516, people: [], reserved: false),
-        Room(name: "DAM", number: 408, people: ["Juan", "Javier"], reserved: true),
+        Room(name: "DAM", number: 408, people: ["Juan", "Javier", "Sergio", "Carlos"], reserved: true),
         Room(name: "Design", number: 311, people: ["Jessica"], reserved: false),
         Room(name: "Videogames 1", number: 520, people: [], reserved: true)
     ] // Lista de salas
-    @IBOutlet weak var RoomTable: UITableView!    // Métodos
+    @IBOutlet weak var OnlyFreeRooms: UIButton!
+    var filtered: Bool = false
+    @IBOutlet weak var RoomTable: UITableView!
+    // Métodos
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return RoomList.count }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoomCell", for: indexPath) as! RoomCellController
@@ -16,6 +19,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.roomNumber?.text = "\(room.number)"
         cell.roomName?.text = room.name
         cell.roomState?.text = room.ShowState(room: RoomList[indexPath.item])
+        if room.reserved {
+            cell.roomState?.textColor = .red
+        } else {
+            cell.roomState?.textColor = .green
+        }
         if room.reserved {
             cell.roomDate?.text = room.RoomDateFormat(room: RoomList[indexPath.item])
         }

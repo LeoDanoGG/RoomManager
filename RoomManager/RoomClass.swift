@@ -27,9 +27,9 @@ class Room {
     /// Muestra el estado libre o reservada
     func ShowState(room: Room) -> String {
         if room.reserved {
-            return "Reserved."
+            return "Reserved"
         } else {
-            return "Free."
+            return "Free"
         }
     }
     /// Formatea la fecha
@@ -44,13 +44,13 @@ class Room {
         var text = "Occupied by:\n"
         for i in 0...room.people.count {
             if room.people.isEmpty {
-                text = "Anyone"
+                text += "Anyone."
             }
             else {
                 if i <= room.people.count-2 {
                     text += room.people[i] + ", "
                 } else if people.count > 3 {
-                    text += "... (+\(room.people.count-2)"
+                    text += "... +\(room.people.count-3)"
                     break
                 } else if i == room.people.count-1 {
                     text += room.people[i] + "."
