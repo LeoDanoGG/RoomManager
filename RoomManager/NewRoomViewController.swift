@@ -12,6 +12,7 @@ class NewRoomViewController : UIViewController {
     @IBOutlet weak var NewRoomState: UISwitch!
     @IBOutlet weak var Hint: UILabel!
     
+    @IBOutlet weak var GoHomeButton: UIButton!
     @IBOutlet weak var CheckParams: UIButton!
     // Métodos
     override func viewDidLoad() {
@@ -19,13 +20,20 @@ class NewRoomViewController : UIViewController {
         RoomList = loadRoomsFromFile()
     }
     // Métodos pararegistrar los datos
+    
+    @IBAction func GoHome(_ sender: Any) {
+        GoHome()
+    }
+    func GoHome() {
+        performSegue(withIdentifier: "HomeFomAdd", sender: nil)
+    }
     @IBAction func CheckNewValues(_ sender: UIButton) {
         Hint.text = ""
         newNumber = ValidateNumber(number: NewRoomNumber.text!)
         newName = ValidateName(name: NewRoomName.text!)
         newState = NewRoomState.isOn
         peopleList = ReadPeople(input: NewRoomPeople.text!)
-        if (Hint.text == "") {
+        if (Hint.text == "" && newName != "" && newNumber != -1) {
             NewRoom(list: RoomList)
             Hint.text = "The new room has been added."
         }
@@ -42,9 +50,12 @@ class NewRoomViewController : UIViewController {
     // Métodos para crear la sala
     /// Crea una nueva sala
     func NewRoom(list: [Room]) {
-        var newRoom = Room(name: newName, number: newNumber, people: peopleList ,reserved: newState)
-        var new = list
-        new.append(newRoom)
+        // Crear el nuevo objeto Room
+        let newRoom = Room(name: newName, number: newNumber, people: peopleList, reserved: newState)
+        // Añadir a la lista
+        RoomList.append(newRoom)
+        // Guardar la lista actualizada en el archivo JSON
+        saveRoomsToFile(rooms: RoomList)
     }
     /// Recoge a los ocupantes en una lista
     func ReadPeople(input: String) -> [String] {
@@ -56,6 +67,9 @@ class NewRoomViewController : UIViewController {
     /// Valida que el dato introducido por el usuario sea valido
     /// Devuelve el valor numerico
     func ValidateNumber(number: String) -> Int {
+        for i in RoomList {
+            print("List: \(i.number)")
+        }
         if number.isEmpty {
             Hint.text = ("No room number introduced.")
         } else {
@@ -66,12 +80,12 @@ class NewRoomViewController : UIViewController {
                     if n.isLetter || n.isSymbol {
                         Hint.text = ("Only numbers. Try again.")
                     } else {
-                        for n in 0...RoomList.count-1 {
-                            if Int(number)! == RoomList[n].number {
+                        let num = Int(number)
+                        for n in RoomList {
+                            print(n.number)
+                            if num == n.number {
                                 Hint.text = ("The room already exists.")
                                 return -1
-                            } else {
-                                return Int(number)!
                             }
                         }
                         return Int(number)!

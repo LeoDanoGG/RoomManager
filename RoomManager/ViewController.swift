@@ -36,28 +36,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Guardar los datos actualizados
+        saveRoomsToFile(rooms: RoomList)
+        RoomList = loadRoomsFromFile() // Recargar la lista para sincronización
+        RoomTable.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         RoomTable.register(UINib(nibName: "RoomCellController", bundle: nil), forCellReuseIdentifier: "RoomCell")
         RoomTable.delegate = self
         RoomTable.dataSource = self
-        RoomList.sort{ $0.number < $1.number }
         StartRooms()
     }
     /// Listado de salas disponibles y reservadas inicial
     func StartRooms() {
-        
+        // Intentar cargar los datos desde un archivo JSON
+        RoomList = loadRoomsFromFile()
+        RoomList.sort { $0.number < $1.number }
+        RoomTable.reloadData()
     }
+
+    @IBAction func ToggleFreeRooms(_ sender: UIButton) {
+        filtered.toggle() // Alternar entre filtrado y no filtrado
+        if filtered {
+            // Filtrar salas libres
+            RoomList = RoomList.filter { !$0.reserved }
+            OnlyFreeRooms.setTitle("Show all Rooms", for: .normal)
+        } else {
+            // Recargar todas las salas
+            RoomList = loadRoomsFromFile()
+            OnlyFreeRooms.setTitle("Show free Rooms", for: .normal)
+        }
+        RoomTable.reloadData()
+    }
+
     /// Cambiar a pantalla de agregar sala
     @IBAction func GoToAddRoom(_ sender: UIButton) {
         GoToAddRoom()
     }
     func GoToAddRoom() {
         performSegue(withIdentifier: "AddRoom", sender: nil)
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! NewRoomViewController
-        destination.RoomList = RoomList
     }
     /*
     /// Metodo para reservar una sala

@@ -19,7 +19,13 @@ func loadRoomsFromFile() -> [Room] {
             return decodedRooms
         }
     }
-    return []
+    // Si no hay archivo, inicializa con datos predeterminados
+    return [
+        Room(name: "Apps", number: 516, people: [], reserved: false),
+        Room(name: "DAM", number: 408, people: ["Juan", "Javier", "Sergio", "Carlos"], reserved: true),
+        Room(name: "Design", number: 311, people: ["Jessica"], reserved: false),
+        Room(name: "Videogames 1", number: 520, people: [], reserved: true)
+    ]
 }
 /// Obtiene la URL de guardado
 func getDocumentsDirectory() -> URL {
