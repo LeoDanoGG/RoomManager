@@ -8,6 +8,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         Room(name: "Videogames 1", number: 520, people: [], reserved: true)
     ] // Lista de salas
     @IBOutlet weak var OnlyFreeRooms: UIButton!
+    @IBOutlet weak var AddRoomButton: UIButton!
     var filtered: Bool = false
     @IBOutlet weak var RoomTable: UITableView!
     // Métodos
@@ -45,7 +46,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     /// Listado de salas disponibles y reservadas inicial
     func StartRooms() {
         
-    }/*
+    }
+    /// Cambiar a pantalla de agregar sala
+    @IBAction func GoToAddRoom(_ sender: UIButton) {
+        GoToAddRoom()
+    }
+    func GoToAddRoom() {
+        performSegue(withIdentifier: "AddRoom", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! NewRoomViewController
+        destination.RoomList = RoomList
+    }
+    /*
     /// Metodo para reservar una sala
     func RoomSelector(list: [Room]) {
         var freeList = [String] ()

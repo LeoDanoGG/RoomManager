@@ -2,9 +2,14 @@ import UIKit
 class NewRoomViewController : UIViewController {
     // Atributos
     var RoomList: [Room] = []
+    var newNumber = -1
+    var newName = ""
+    var peopleList = [String]()
+    var newState = false
     @IBOutlet weak var NewRoomName: UITextField!
     @IBOutlet weak var NewRoomNumber: UITextField!
     @IBOutlet weak var NewRoomPeople: UITextView!
+    @IBOutlet weak var NewRoomState: UISwitch!
     @IBOutlet weak var Hint: UILabel!
     
     @IBOutlet weak var CheckParams: UIButton!
@@ -12,61 +17,79 @@ class NewRoomViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Hint.text = ""
+        print(newName)
+        print(newNumber)
+        print(peopleList)
+        print(newState)
     }
+    // Métodos pararegistrar los datos
+    @IBAction func CheckNewValues(_ sender: UIButton) {
+        newNumber = ValidateNumber(number: NewRoomNumber.text!)
+        newName = ValidateName(name: NewRoomName.text!)
+        newState = NewRoomState.isOn
+        peopleList = ReadPeople(input: NewRoomPeople.text!)
+        print("=================")
+        print(newName)
+        print(newNumber)
+        print(newState)
+        print("-----------------")
+        print(peopleList)
+        print("=================")
+    }
+    
+    // Métodos para crear la sala
     /// Crea una nueva sala
     func NewRoom(list: [Room]) {
-        var newNumber = -1
-        var newName = ""
-        var peopleList = [String]()
-        // Validar el numero
-            newNumber = Validate(number: readLine()!)
-            for n in 0...list.count-1 {
-                if newNumber == list[n].number {
-                    Hint.text = ("The room already exists.")
-                    break
-                }
-            }
-            if newNumber > 0 { }
-        // Validar el nombre
-        newName = readLine()!
-        if newName.isEmpty {
-            Hint.text = ("It needs a name.")
-        } else { }
-        // Validar los ocupantes
-        var i = 0
-        while true {
-            i += 1
-            guard let member = readLine(),
-                  member.isEmpty == false else {
-                break
-            }
-            peopleList.append(member)
-            continue
-        }
-        var newRoom = Room(name: newName, number: newNumber, people: peopleList ,reserved: false)
+        var newRoom = Room(name: newName, number: newNumber, people: peopleList ,reserved: newState)
         var new = list
         new.append(newRoom)
     }
+    /// Recoge a los ocupantes en una lista
+    func ReadPeople(input: String) -> [String] {
+        var peopleList = [String]()
+        peopleList = input.split(separator: ", ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        peopleList = input.split(separator: "\n").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        return peopleList
+    }
     /// Valida que el dato introducido por el usuario sea valido
     /// Devuelve el valor numerico
-    func Validate(number: String) -> Int {
+    func ValidateNumber(number: String) -> Int {
         if number.isEmpty {
-            print("No value introduced.")
+            Hint.text = ("No room number introduced.")
         } else {
             if number.contains(",") || number.contains(".") {
-                print("Only integer. Try again.")
+                Hint.text = ("Only integer. Try again.")
             } else {
                 for n in number {
                     if n.isLetter || n.isSymbol {
-                        print("I only accept numbers Try again.")
+                        Hint.text = ("Only numbers. Try again.")
                     } else {
                         let num = Int(number)
-                        return num ??  -1
+                        Hint.text = ""
+                        for n in 0...RoomList.count-1 {
+                            if num == RoomList[n].number {
+                                Hint.text = ("The room number already exists.")
+                                break
+                            } else {
+                                return num ??  -1
+                            }
+                        }
                     }
                 }
             }
         }
         return -1
+    }
+    /// Valida que el dato introducido por el usuario sea valido
+    /// Devuelve el nombre
+    func ValidateName(name: String) -> String {
+        if name.isEmpty {
+            Hint.text = ("It needs a name.")
+        } else {
+            Hint.text = ""
+            return name
+        }
+        return name
     }
     /// Busca la sala especificada por numero o nombre
     /// Devuelve su posicion
