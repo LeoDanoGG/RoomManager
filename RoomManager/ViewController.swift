@@ -41,6 +41,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         RoomTable.register(UINib(nibName: "RoomCellController", bundle: nil), forCellReuseIdentifier: "RoomCell")
         RoomTable.delegate = self
         RoomTable.dataSource = self
+        RoomList.sort{ $0.number < $1.number }
         StartRooms()
     }
     /// Listado de salas disponibles y reservadas inicial

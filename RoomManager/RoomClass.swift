@@ -1,6 +1,33 @@
 import Foundation
+extension Room {}
+/* Funciones para gestionar listas */
+/// Guarda los datos
+func saveRoomsToFile(rooms: [Room]) {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+    if let encodedData = try? encoder.encode(rooms) {
+        let fileURL = getDocumentsDirectory().appendingPathComponent("rooms.json")
+        try? encodedData.write(to: fileURL)
+    }
+}
+/// Carga los datos
+func loadRoomsFromFile() -> [Room] {
+    let fileURL = getDocumentsDirectory().appendingPathComponent("rooms.json")
+    if let data = try? Data(contentsOf: fileURL) {
+        let decoder = JSONDecoder()
+        if let decodedRooms = try? decoder.decode([Room].self, from: data) {
+            return decodedRooms
+        }
+    }
+    return []
+}
+/// Obtiene la URL de guardado
+func getDocumentsDirectory() -> URL {
+    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+}
+
 /// Contiene valores para reservar las salas de reunion
-class Room {
+class Room : Codable {
     /* Atributos */
     var name: String = ""
     var number: Int = 0
@@ -36,7 +63,8 @@ class Room {
     func RoomDateFormat(room: Room) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy HH:mm"
-        let dateString = dateFormatter.string(from: room.date)
+        var dateString = ""
+        if reserved { dateString = dateFormatter.string(from: room.date) }
         return dateString
     }
     /// Dicta los participantes
@@ -59,6 +87,9 @@ class Room {
             }
         }
         return text
+    }
+    func GetNumber(room: Room) -> Int {
+        return room.number
     }
 }
 

@@ -16,18 +16,20 @@ class NewRoomViewController : UIViewController {
     // Métodos
     override func viewDidLoad() {
         super.viewDidLoad()
-        Hint.text = ""
-        print(newName)
-        print(newNumber)
-        print(peopleList)
-        print(newState)
+        RoomList = loadRoomsFromFile()
     }
     // Métodos pararegistrar los datos
     @IBAction func CheckNewValues(_ sender: UIButton) {
+        Hint.text = ""
         newNumber = ValidateNumber(number: NewRoomNumber.text!)
         newName = ValidateName(name: NewRoomName.text!)
         newState = NewRoomState.isOn
         peopleList = ReadPeople(input: NewRoomPeople.text!)
+        if (Hint.text == "") {
+            NewRoom(list: RoomList)
+            Hint.text = "The new room has been added."
+        }
+        // Esquema de la sala
         print("=================")
         print(newName)
         print(newNumber)
@@ -64,16 +66,15 @@ class NewRoomViewController : UIViewController {
                     if n.isLetter || n.isSymbol {
                         Hint.text = ("Only numbers. Try again.")
                     } else {
-                        let num = Int(number)
-                        Hint.text = ""
                         for n in 0...RoomList.count-1 {
-                            if num == RoomList[n].number {
-                                Hint.text = ("The room number already exists.")
-                                break
+                            if Int(number)! == RoomList[n].number {
+                                Hint.text = ("The room already exists.")
+                                return -1
                             } else {
-                                return num ??  -1
+                                return Int(number)!
                             }
                         }
+                        return Int(number)!
                     }
                 }
             }
@@ -86,7 +87,6 @@ class NewRoomViewController : UIViewController {
         if name.isEmpty {
             Hint.text = ("It needs a name.")
         } else {
-            Hint.text = ""
             return name
         }
         return name
