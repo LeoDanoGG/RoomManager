@@ -58,8 +58,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var index: String = readLine()! // Captura el dato introducido por el usuario
         var numindex = Exists(input: index, list: list)
         if numindex > -1 {
-            list[numindex].reserved = true
-            var i = 0
+            list[numindex].reserved = true            var i = 0
             var peopleList = [String]()
             // Si la sala esta vacia
             if list[numindex].people.isEmpty {
@@ -115,85 +114,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             NewRoom(list: list)
         }
     }
-    /// Crea una nueva sala
-    func NewRoom(list: [Room]) {
-        var newNumber = -1
-        var newName = ""
-        var peopleList = [String]()
-        // Validar el numero
-        while true {
-            print("Which is the room number?")
-            newNumber = Validate(number: readLine()!)
-            for n in 0...list.count-1 {
-                if newNumber == list[n].number {
-                    print("The room already exists.")
-                    break
-                }
-            }
-            if newNumber > 0 {
-                break
-            }
-        }
-        // Validar el nombre
-        while true {
-            print("Which is the room name?")
-            newName = readLine()!
-            if newName.isEmpty {
-                print("It needs a name.")
-            } else {
-                break
-            }
-        }
-        // Validar los ocupantes
-        print("Who is going to be there?")
-        var i = 0
-        while true {
-            i += 1
-            print("Tell me the name(s) \(i):\n(Enter to skip)")
-            guard let member = readLine(),
-                  member.isEmpty == false else {
-                break
-            }
-            peopleList.append(member)
-            continue
-        }
-        var newRoom = Room(name: newName, number: newNumber, people: peopleList ,reserved: false)
-        var new = list
-        new.append(newRoom)
-        RoomList(list: new)
-    }
-    /// Valida que el dato introducido por el usuario sea valido
-    /// Devuelve el valor numerico
-    func Validate(number: String) -> Int {
-        if number.isEmpty {
-            print("No value introduced.")
-        } else {
-            if number.contains(",") || number.contains(".") {
-                print("Only integer. Try again.")
-            } else {
-                for n in number {
-                    if n.isLetter || n.isSymbol {
-                        print("I only accept numbers Try again.")
-                    } else {
-                        let num = Int(number)
-                        return num ??  -1
-                    }
-                }
-            }
-        }
-        return -1
-    }
-    /// Busca la sala especificada por numero o nombre
-    /// Devuelve su posicion
-    func Exists(input: String, list: [Room]) -> Int {
-        for n in 0...list.count-1 {
-            if input.lowercased() == list[n].name.lowercased() {
-                return n
-            } else if Int(input) == list[n].number {
-                return n
-            }
-        }
-        return -1
-    }
-     */
+    */
 }
