@@ -41,16 +41,16 @@ class Room {
     }
     /// Dicta los participantes
     func DictPeople(room: Room) -> String {
-        var text = "\n\tOccupied by: "
+        var text = "Occupied by:\n"
         for i in 0...room.people.count {
             if room.people.isEmpty {
-                text = ""
+                text = "Anyone"
             }
             else {
                 if i <= room.people.count-2 {
                     text += room.people[i] + ", "
                 } else if people.count > 3 {
-                    text += "..."
+                    text += "... (+\(room.people.count-2)"
                     break
                 } else if i == room.people.count-1 {
                     text += room.people[i] + "."

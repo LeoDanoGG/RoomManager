@@ -10,13 +10,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var RoomTable: UITableView!    // Métodos
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return RoomList.count }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RoomCell" , for : indexPath) as! RoomCellController
-        cell.roomNumber?.text = "\(RoomList[indexPath.item].number)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RoomCell", for: indexPath) as! RoomCellController
+        let room = RoomList[indexPath.row]
+        
+        cell.roomNumber?.text = "\(room.number)"
+        cell.roomName?.text = room.name
+        cell.roomState?.text = room.ShowState(room: RoomList[indexPath.item])
+        if room.reserved {
+            cell.roomDate?.text = room.RoomDateFormat(room: RoomList[indexPath.item])
+        }
+        cell.roomPeople?.text = room.DictPeople(room: RoomList[indexPath.item])
+        
+        // Configuración de botón (ejemplo)
+        cell.roomReserve?.isHidden = room.reserved
+        
         return cell
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // MARK: - Registrar
         RoomTable.register(UINib(nibName: "RoomCellController", bundle: nil), forCellReuseIdentifier: "RoomCell")
         RoomTable.delegate = self
         RoomTable.dataSource = self
@@ -24,16 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     /// Listado de salas disponibles y reservadas inicial
     func StartRooms() {
-        /*var room516 = Room(name: "Apps", number: 516, people: [], reserved: false)
-        RoomList.append(room516)
-        room516 = Room(name: "DAM", number: 408, people: ["Juan", "Javier"], reserved: true)
-        RoomList.append(room516)
-        room516 = Room(name: "Design", number: 311, people: ["Jessica"], reserved: false)
-        RoomList.append(room516)
-        room516 = Room(name: "Videogames 1", number: 520, people: [], reserved: true)
-        RoomList.append(room516)*/
         
-        //ListOfRooms(list: RoomManager)
     }/*
     /// Metodo para reservar una sala
     func RoomSelector(list: [Room]) {
