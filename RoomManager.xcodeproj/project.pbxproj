@@ -19,6 +19,7 @@
 		7FC40DB32CF71C4800535955 /* RoomClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC40DB22CF71C4800535955 /* RoomClass.swift */; };
 		FAA5E7EA2CF73A2A00157015 /* RoomCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA5E7E92CF73A2000157015 /* RoomCellController.swift */; };
 		FAC648482CFCDFE4000FD412 /* ReserveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC648472CFCDFE4000FD412 /* ReserveRoomViewController.swift */; };
+		FAC6484A2CFCFABE000FD412 /* DetailRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC648492CFCFAB2000FD412 /* DetailRoomViewController.swift */; };
 		FAF621592CF86316000E8189 /* RoomCellController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF621582CF86316000E8189 /* RoomCellController.xib */; };
 		FAF6215B2CF870BD000E8189 /* NewRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF6215A2CF870BD000E8189 /* NewRoomViewController.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		7FC40DB22CF71C4800535955 /* RoomClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomClass.swift; sourceTree = "<group>"; };
 		FAA5E7E92CF73A2000157015 /* RoomCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellController.swift; sourceTree = "<group>"; };
 		FAC648472CFCDFE4000FD412 /* ReserveRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveRoomViewController.swift; sourceTree = "<group>"; };
+		FAC648492CFCFAB2000FD412 /* DetailRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRoomViewController.swift; sourceTree = "<group>"; };
 		FAF621582CF86316000E8189 /* RoomCellController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomCellController.xib; sourceTree = "<group>"; };
 		FAF6215A2CF870BD000E8189 /* NewRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 		7FC40D812CF71C2400535955 /* RoomManager */ = {
 			isa = PBXGroup;
 			children = (
+				FAC648492CFCFAB2000FD412 /* DetailRoomViewController.swift */,
 				7FC40D822CF71C2400535955 /* AppDelegate.swift */,
 				7FC40D842CF71C2400535955 /* SceneDelegate.swift */,
 				7FC40D862CF71C2400535955 /* ViewController.swift */,
@@ -274,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC6484A2CFCFABE000FD412 /* DetailRoomViewController.swift in Sources */,
 				FAF6215B2CF870BD000E8189 /* NewRoomViewController.swift in Sources */,
 				FAA5E7EA2CF73A2A00157015 /* RoomCellController.swift in Sources */,
 				7FC40D872CF71C2400535955 /* ViewController.swift in Sources */,

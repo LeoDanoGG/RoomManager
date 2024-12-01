@@ -43,6 +43,6 @@ class ReserveRoomViewController: UIViewController {
         saveRoomsToFile(rooms: RoomList)
         
         // Actualizar el mensaje de confirmación
-        Hint.text = "The room \(RoomList[index].number) (\(RoomList[index].name)) has been reserved."
+        Hint.text = "The room has been reserved."
     }
 }

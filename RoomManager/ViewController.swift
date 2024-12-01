@@ -32,6 +32,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.delegate = self
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Obtener la sala seleccionada usando el índice de la fila
+        let selectedRoom = RoomList[indexPath.row]
+        
+        // Realizar el segue pasando la sala seleccionada y su índice
+        performSegue(withIdentifier: "ShowCellDetail", sender: (room: selectedRoom, index: indexPath.row))
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,6 +93,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segue.identifier == "ReserveRoom",
            let destinationVC = segue.destination as? ReserveRoomViewController,
            let data = sender as? (room: Room, index: Int) {
+            destinationVC.selectedRoom = data.room
+            destinationVC.index = data.index
+            destinationVC.RoomList = RoomList // Pasar la lista completa si es necesario
+        }
+        else if segue.identifier == "ShowCellDetail",
+                let destinationVC = segue.destination as? DetailRoomVController,
+                let data = sender as? (room: Room, index: Int) {
             destinationVC.selectedRoom = data.room
             destinationVC.index = data.index
             destinationVC.RoomList = RoomList // Pasar la lista completa si es necesario
