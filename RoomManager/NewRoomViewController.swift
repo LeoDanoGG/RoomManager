@@ -35,7 +35,10 @@ class NewRoomViewController : UIViewController {
         peopleList = ReadPeople(input: NewRoomPeople.text!)
         if (Hint.text == "" && newName != "" && newNumber != -1) {
             NewRoom(list: RoomList)
+            CheckParams.isHidden = true
             Hint.text = "The new room has been added."
+        } else {
+            CheckParams.isHidden = false
         }
         // Esquema de la sala
         print("=================")
@@ -67,9 +70,6 @@ class NewRoomViewController : UIViewController {
     /// Valida que el dato introducido por el usuario sea valido
     /// Devuelve el valor numerico
     func ValidateNumber(number: String) -> Int {
-        for i in RoomList {
-            print("List: \(i.number)")
-        }
         if number.isEmpty {
             Hint.text = ("No room number introduced.")
         } else {
@@ -82,7 +82,6 @@ class NewRoomViewController : UIViewController {
                     } else {
                         let num = Int(number)
                         for n in RoomList {
-                            print(n.number)
                             if num == n.number {
                                 Hint.text = ("The room already exists.")
                                 return -1
