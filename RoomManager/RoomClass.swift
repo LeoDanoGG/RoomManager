@@ -94,6 +94,23 @@ class Room : Codable {
         }
         return text
     }
+    /// Dicta los participantes
+    func ListPeople(room: Room) -> String {
+        var text = ""
+        for i in 0...room.people.count {
+            if room.people.isEmpty {
+                text += "Anyone."
+            }
+            else {
+                if i <= room.people.count-2 { text += room.people[i] + ", \n" }
+                else if i == room.people.count-1 {
+                    text += room.people[i] + "."
+                    break
+                }
+            }
+        }
+        return text
+    }
     func GetNumber(room: Room) -> Int {
         return room.number
     }

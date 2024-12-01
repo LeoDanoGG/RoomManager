@@ -6,12 +6,12 @@ class NewRoomViewController : UIViewController {
     var newName = ""
     var peopleList = [String]()
     var newState = false
+    // Componentes
     @IBOutlet weak var NewRoomName: UITextField!
     @IBOutlet weak var NewRoomNumber: UITextField!
     @IBOutlet weak var NewRoomPeople: UITextView!
     @IBOutlet weak var NewRoomState: UISwitch!
     @IBOutlet weak var Hint: UILabel!
-    
     @IBOutlet weak var GoHomeButton: UIButton!
     @IBOutlet weak var CheckParams: UIButton!
     // Métodos
@@ -20,7 +20,6 @@ class NewRoomViewController : UIViewController {
         RoomList = loadRoomsFromFile()
     }
     // Métodos pararegistrar los datos
-    
     @IBAction func GoHome(_ sender: Any) {
         GoHome()
     }
@@ -40,16 +39,7 @@ class NewRoomViewController : UIViewController {
         } else {
             CheckParams.isHidden = false
         }
-        // Esquema de la sala
-        print("=================")
-        print(newName)
-        print(newNumber)
-        print(newState)
-        print("-----------------")
-        print(peopleList)
-        print("=================")
     }
-    
     // Métodos para crear la sala
     /// Crea una nueva sala
     func NewRoom(list: [Room]) {
